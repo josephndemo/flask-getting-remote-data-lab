@@ -2,23 +2,18 @@ import requests
 
 
 class GetRequester:
-
     def __init__(self, url):
-
         self.url = url
 
     def get_response_body(self):
-
         response = requests.get(self.url)
-        response.raise_for_status()  
-        return response.text
+        response.raise_for_status()
+        return response.content   # ✅ MUST be bytes
 
     def load_json(self):
-
         response = requests.get(self.url)
         response.raise_for_status()
         return response.json()
-
 
 
 if __name__ == "__main__":
@@ -28,7 +23,7 @@ if __name__ == "__main__":
 
     print("Fetching raw response...\n")
     raw_data = requester.get_response_body()
-    print(raw_data[:200])  
+    print(raw_data[:200])
 
     print("\nLoading JSON data...\n")
     people = requester.load_json()
